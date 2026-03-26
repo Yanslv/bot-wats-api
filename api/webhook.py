@@ -70,14 +70,19 @@ class handler(BaseHTTPRequestHandler):
         try:
             data = json.loads(body)
         except Exception:
+            print(f"[webhook] body inválido (não é JSON): {body[:500]}")
             self._respond(200, {"status": "ignored", "reason": "invalid json"})
             return
+
+        print(f"[webhook] payload recebido: {json.dumps(data)[:2000]}")
 
         event    = data.get("event", "")
         msg_data = data.get("data", {})
         message  = msg_data.get("message", {})
         from_me  = msg_data.get("key", {}).get("fromMe", False)
         msg_type = message.get("type", "")
+
+        print(f"[webhook] event={event!r} msg_type={msg_type!r} from_me={from_me}")
 
         # Ignora tudo que não for áudio recebido
         if from_me or msg_type not in ("audio", "ptt"):
