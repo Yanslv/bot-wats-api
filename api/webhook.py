@@ -4,10 +4,10 @@ import requests
 from http.server import BaseHTTPRequestHandler
 
 
-WHATSAPI_URL    = "https://meuzapi.vercel.app"
-WHATSAPI_TOKEN  = os.environ["WHATSAPI_TOKEN"]
+WHATSAPI_URL      = os.environ.get("WHATSAPI_URL", "https://ipazua.uazapi.com")
+WHATSAPI_TOKEN    = os.environ["WHATSAPI_TOKEN"]
 WHATSAPI_INSTANCE = os.environ["WHATSAPI_INSTANCE"]
-GROQ_API_KEY    = os.environ["GROQ_API_KEY"]
+GROQ_API_KEY      = os.environ["GROQ_API_KEY"]
 
 
 def download_audio(url: str) -> tuple[bytes, str]:
